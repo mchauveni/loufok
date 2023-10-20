@@ -2,7 +2,7 @@
 
 class Template extends Model
 {
-    protected $tableName = APP_TABLE_PREFIX.'////';
+    protected $tableName = APP_TABLE_PREFIX . '////';
     protected static $instance;
 
     public static function getInstance()
