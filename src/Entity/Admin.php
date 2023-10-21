@@ -1,8 +1,8 @@
 <?php
-/*
-class Template extends Model
+
+class Admin extends Model
 {
-    protected $tableName = APP_TABLE_PREFIX . '////';
+    protected $tableName = APP_TABLE_PREFIX . 'administrateur';
     protected static $instance;
 
     public static function getInstance()
@@ -14,4 +14,3 @@ class Template extends Model
         return self::$instance;
     }
 }
-*/

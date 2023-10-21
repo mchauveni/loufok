@@ -10,18 +10,26 @@ class HTTP
         return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
 
-  /**
-   * Retourne l'URL complète.
-   *
-   * @return string
-   */
-  public static function url(string $url = '')
-  {
-      // ajouter le slash si nécessaire
-      $url = substr($url, 0, 1) != '/' ? '/'.$url : $url;
+    /**
+     * Indique si la méthode de travail est POST.
+     */
+    public static function is_method_post(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
 
-      return APP_ROOT_URL_COMPLETE.$url;
-  }
+    /**
+     * Retourne l'URL complète.
+     *
+     * @return string
+     */
+    public static function url(string $url = '')
+    {
+        // ajouter le slash si nécessaire
+        $url = substr($url, 0, 1) != '/' ? '/' . $url : $url;
+
+        return APP_ROOT_URL_COMPLETE . $url;
+    }
 
     /**
      * Redirige vers une route.
@@ -30,6 +38,6 @@ class HTTP
      */
     public static function redirect(string $url = '/')
     {
-        header('Location: '.APP_ROOT_URL_COMPLETE.$url);
+        header('Location: ' . APP_ROOT_URL_COMPLETE . $url);
     }
 }

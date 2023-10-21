@@ -22,4 +22,9 @@ $routes = [
         'method' => ['GET'],
         'script' => '301.php',
     ],
+    [
+        'route' => ['/login'],
+        'method' => ['GET', 'POST'],
+        'script' => 'login.php',
+    ],
 ];

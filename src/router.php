@@ -14,24 +14,7 @@ $route = $route === '' ? '/' : $route;
 
 foreach ($routes as $r) {
     if (in_array($route, $r['route']) && in_array($_SERVER['REQUEST_METHOD'], $r['method'])) {
-        if (str_contains($route, '/admin')) {
-            if (isset($_COOKIE['username']) && isset($_COOKIE['usertoken'])) {
-                $admin = Admin::getInstance()->findBy(['username' => $_COOKIE['username']]);
-                $admin = $admin[0];
-
-                require 'templates/'.$r['script'];
-
-                exit;
-            }
-            require 'templates/403.php';
-            exit;
-        }
-
-        require 'templates/'.$r['script'];
-        if ($_SESSION['load'] == false) {
-            include 'templates/loader.php';
-            $_SESSION['load'] = true;
-        }
+        require 'templates/' . $r['script'];
         exit;
     }
 }

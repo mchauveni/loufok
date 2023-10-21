@@ -3,7 +3,7 @@
 /* Fichier : Config/config.local.php */
 
 // le nom de la base
-define('APP_DB_NAME', '/////');
+define('APP_DB_NAME', 'loufok');
 
 // le nom de la machine qui héberge le serveur MYSQL
 define('APP_DB_HOST', 'localhost');
