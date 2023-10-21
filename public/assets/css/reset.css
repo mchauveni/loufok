@@ -36,6 +36,7 @@ h6 {
   font-weight: normal;
   overflow-wrap: break-word;
 }
+
 p {
   overflow-wrap: break-word;
 }
@@ -48,6 +49,7 @@ button,
 input,
 select {
   margin: 0;
+  outline: none;
 }
 
 html {
