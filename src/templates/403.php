@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="icon" href="./favicon.ico">
     <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
 <body>
