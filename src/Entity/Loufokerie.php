@@ -11,4 +11,14 @@ class Loufokerie extends Model {
 
         return self::$instance;
     }
+
+    public function getCurrent() {
+        $today = date('Y-m-d');
+        $sql = "SELECT * FROM `loufokerie` WHERE date_debut_loufokerie < '$today' AND date_fin_loufokerie >= '$today'";
+
+        $current = $this->query($sql)->fetch();
+        if (!$current) return false;
+
+        return $current;
+    }
 }

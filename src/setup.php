@@ -8,5 +8,7 @@ require 'Entity/Model.php';
 require 'Entity/Admin.php';
 require 'Entity/User.php';
 require 'Entity/Loufokerie.php';
+require 'Entity/Contribution.php';
+require 'Entity/Random_contribution.php';
 
 require 'router.php';
