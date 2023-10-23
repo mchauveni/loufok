@@ -36,7 +36,7 @@
 }
 
 .login__button {
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 0.5rem;
     color: var(--dark);
     border-radius: 4px;

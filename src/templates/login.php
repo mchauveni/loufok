@@ -39,13 +39,14 @@ if (HTTP::is_method_post()) {
 	<!-- Favicon -->
 	<link rel="icon" href="./favicon.ico">
 	<!-- CSS -->
-	<link rel="stylesheet" href="./assets/css/index.css">
+	<link rel="stylesheet" href="./assets/css/main.css">
 	<link rel="stylesheet" href="./assets/css/login.css">
 </head>
 
 <body>
 	<div class="login">
 		<form class="login__form" method="post">
+			<img src="/assets/images/loufok.svg" alt="">
 			<div class="login__inputwrapper">
 				<label class="login__label" for="email">Adresse Email</label>
 				<input class="login__input" type="text" name="email" id="">
