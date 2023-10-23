@@ -27,4 +27,9 @@ $routes = [
         'method' => ['GET', 'POST'],
         'script' => 'login.php',
     ],
+    [
+        'route' => ['/logout'],
+        'method' => ['GET'],
+        'script' => 'logout.php',
+    ],
 ];

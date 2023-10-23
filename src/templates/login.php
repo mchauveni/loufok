@@ -2,11 +2,15 @@
 if (HTTP::is_method_post()) {
 	date_default_timezone_set('Europe/Paris');
 	$user = User::getInstance()->findBy(['ad_mail_joueur' => $_POST['email'], 'mot_de_passe_joueur' => $_POST['password']]);
+	$errors = false;
+
+	// Si un utilisateur n'est pas trouvé
 	if (!$user) {
 		$admin = Admin::getInstance()->findBy(['ad_mail_administrateur' => $_POST['email'], 'mot_de_passe_administrateur' => $_POST['password']]);
 
 		if ($admin) {
 			// REDIRIGER VERS UNE PAGE ADMIN
+			Cookies::log_in($admin, true);
 			HTTP::redirect('/responsable/dashboard');
 		} else {
 			$errors = 'Identifiants invalides';
@@ -15,6 +19,7 @@ if (HTTP::is_method_post()) {
 
 	if (!$errors) {
 		// REDIRIGER VERS LA PAGE DE BASE
+		Cookies::log_in($user[0], false);
 		HTTP::redirect('/');
 	}
 }
