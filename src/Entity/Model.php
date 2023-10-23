@@ -15,14 +15,12 @@
  *   - delete( int $id )                pour effacer une donnée
  *   - exist( int $id )                 pour vérifier si une donnée existe
  */
-class Model
-{
+class Model {
     protected $tableName;
     // instance de la classe
     protected static $dbh;
 
-    public function __construct()
-    {
+    public function __construct() {
         if (!self::$dbh) {
             try {
                 $dsn = 'mysql:host=' . APP_DB_HOST . ';dbname=' . APP_DB_NAME . ';charset=UTF8';
@@ -63,8 +61,7 @@ class Model
      * @param  integer  $id identifiant
      * @return array
      */
-    public function find(int $id): ?array
-    {
+    public function find(int $id): ?array {
         $sql = "SELECT * FROM `{$this->tableName}` WHERE id = :id";
         $sth = $this->query($sql, [':id' => $id]);
         if ($sth && $sth->rowCount()) {
@@ -79,8 +76,7 @@ class Model
      *
      * @return array
      */
-    public function findAll(): ?array
-    {
+    public function findAll(): ?array {
         $sql = "SELECT * FROM `{$this->tableName}`";
         $sth = $this->query($sql);
         if ($sth) {
@@ -96,8 +92,7 @@ class Model
      * @param  array  $criterias le tableau des critères
      * @return array
      */
-    public function findBy(array $criterias): ?array
-    {
+    public function findBy(array $criterias): ?array {
         // décomposer le tableau des critères
         foreach ($criterias as $f => $v) {
             $fields[] = "$f = ?";
@@ -116,8 +111,7 @@ class Model
      * @param  integer  $id identifiant à tester.
      * @return bool
      */
-    public function exists(int $id): bool
-    {
+    public function exists(int $id): bool {
         $sql = "SELECT COUNT(*) AS c FROM `{$this->tableName}` WHERE id = :id";
         $sth = $this->query($sql, [':id' => $id]);
         if ($sth) {
@@ -133,8 +127,7 @@ class Model
      * @param  array  $datas  données à ajouter organisées sous forme de tableau associatif.
      * @return integer
      */
-    public function create(array $datas): ?int
-    {
+    public function create(array $datas): ?int {
         $sql = 'INSERT INTO `' . $this->tableName . '` ( ';
         foreach (array_keys($datas) as $k) {
             $sql .= " {$k} ,";
@@ -163,8 +156,7 @@ class Model
      * @param  array  $datas  tableau associatif des données à modifier.
      * @return bool
      */
-    public function update(int $id, array $datas): bool
-    {
+    public function update(int $id, array $datas): bool {
         $sql = 'UPDATE `' . $this->tableName . '` SET ';
         foreach (array_keys($datas) as $k) {
             $sql .= " {$k} = :{$k} ,";
@@ -189,8 +181,7 @@ class Model
      * @param  integer  $id identifiant
      * @return int|boolean
      */
-    public function delete(int $id): int
-    {
+    public function delete(int $id): int {
         $sql = "DELETE FROM `{$this->tableName}` WHERE id = :id";
         $sth = $this->query($sql, [':id' => $id]);
 
@@ -204,8 +195,7 @@ class Model
      * @param array $attributs      tableau des attributs
      * @return void
      */
-    public function query(string $sql, array $attributs = null)
-    {
+    public function query(string $sql, array $attributs = null) {
         // si des attributs sont spécifiés ...
         if ($attributs !== null) {
             // Requête préparée

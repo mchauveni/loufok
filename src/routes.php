@@ -6,7 +6,6 @@ $routes = [
         'method' => ['GET'],
         'script' => 'index.php',
     ],
-
     [
         'route' => ['/404'],
         'method' => ['GET'],
@@ -31,5 +30,11 @@ $routes = [
         'route' => ['/logout'],
         'method' => ['GET'],
         'script' => 'logout.php',
+    ],
+    [
+        'route' => ['/loufokerie/create'],
+        'method' => ['GET'],
+        'script' => 'logout.php',
+        'auth' => 'admin'
     ],
 ];

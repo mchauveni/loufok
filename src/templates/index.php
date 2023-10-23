@@ -2,7 +2,10 @@
 if (!$_COOKIE['is_logged_in']) {
     HTTP::redirect('/login');
 }
+
+$loufokeries = Loufokerie::getInstance()->findAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,8 +25,28 @@ if (!$_COOKIE['is_logged_in']) {
 </head>
 
 <body>
-    <a href="/logout">Déconnexion</a>
-    <h1>Bienvenue <?php echo $_COOKIE["username"] ?></h1>
+    <a href="/logout"><img src="/assets/images/logout.svg" alt=""></a>
+    <header>
+        <h1>Bienvenue <?php echo $_COOKIE["username"] ?></h1>
+    </header>
+    <div>
+        <?php
+        if (!$loufokeries) {
+            echo "Il n'y a pas encore de Loufokerie..";
+        } else {
+            foreach ($loufokeries as $loufokerie) {
+                $date_debut = date_format(date_create($loufokerie['date_debut_loufokerie']), 'd/m/Y');
+                $date_fin = date_format(date_create($loufokerie['date_fin_loufokerie']), 'd/m/Y');
+        ?>
+                <a class="loufokerie">
+                    <h3><?php echo $date_debut . " - " . $date_fin ?></h3>
+
+                </a>
+        <?php
+            }
+        }
+        ?>
+    </div>
 </body>
 
 </html>
