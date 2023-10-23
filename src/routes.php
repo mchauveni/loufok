@@ -32,9 +32,15 @@ $routes = [
         'script' => 'logout.php',
     ],
     [
+        'route' => ['/assignRandomContrib'],
+        'method' => ['GET'],
+        'script' => 'assignContrib.php',
+    ],
+    [
         'route' => ['/loufokerie/create'],
         'method' => ['GET'],
-        'script' => 'logout.php',
+        'script' => '',
         'auth' => 'admin'
     ],
+
 ];
