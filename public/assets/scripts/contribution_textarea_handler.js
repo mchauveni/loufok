@@ -18,5 +18,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 label.style.color = "";
             }
         }
+
+        autoResize();
     })
+
+    function autoResize() {
+        input.style.height = "auto"; // Reset the height to auto to determine the natural height
+        input.style.height = (input.scrollHeight) + "px"; // Set the height to match the content height
+    }
 })
