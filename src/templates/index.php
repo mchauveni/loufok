@@ -18,6 +18,7 @@ $random_contribution = ($random_contribution != null) ? Contribution::getInstanc
 // Récupère la contribution du joueur, si elle existe
 $user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
 $user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
+var_dump($user_contribution == null);
 
 function txtContribSingularPlural($nb) {
     switch ($nb) {
@@ -52,7 +53,7 @@ function txtContribSingularPlural($nb) {
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/index.css">
     <!-- JS -->
-    <script src="/assets/scripts/input_char_limit.js"></script>
+    <script src="/assets/scripts/contribution_textarea_handler.js"></script>
 </head>
 
 <body>
@@ -94,23 +95,29 @@ function txtContribSingularPlural($nb) {
                     $nb_contrib_after = count($contributions) - $random_contribution['ordre_soumission'];
 
                     $txt_before = txtContribSingularPlural($nb_contrib_before);
+                    $txt_between = txtContribSingularPlural($nb_contrib_after);
                     $txt_after = txtContribSingularPlural($nb_contrib_after);
                 ?>
                     <?php if ($txt_before) echo $txt_before; ?>
                     <p><?php echo $random_contribution['texte_contribution'] ?></p>
                     <?php if ($txt_after) echo $txt_after;  ?>
+                    <?php if ($user_contribution) echo $user_contribution['texte_contribution'];  ?>
+                <?php
+                }
+                if (!$user_contribution) {
+                ?>
+                    <div class="contribute">
+                        <form class="contribute__form" action="submitContrib" method="POST">
+                            <div class="contribute__inputwrapper">
+                                <label class="contribute__label" for="contribution"></label>
+                                <textarea class="contribute__input" type="text" name="contribution" placeholder="...boira le vin nouveau..."></textarea>
+                            </div>
+                            <button class="contribute__submit">Valider</button>
+                        </form>
+                    </div>
                 <?php
                 }
                 ?>
-                <div class="contribute">
-                    <form class="contribute__form">
-                        <div class="contribute__inputwrapper">
-                            <label class="contribute__label" for="contribution"></label>
-                            <input class="contribute__input" type="text" name="contribution" id="">
-                        </div>
-                        <button class="contribute__submit">Valider</button>
-                    </form>
-                </div>
             </div>
         <?php
         }

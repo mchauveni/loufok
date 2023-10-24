@@ -32,6 +32,11 @@ $routes = [
         'script' => 'logout.php',
     ],
     [
+        'route' => ['/submitContrib'],
+        'method' => ['POST'],
+        'script' => 'submitContrib.php',
+    ],
+    [
         'route' => ['/assignRandomContrib'],
         'method' => ['GET'],
         'script' => 'assignContrib.php',
