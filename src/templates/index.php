@@ -3,18 +3,36 @@ if (!$_COOKIE['is_logged_in']) {
     HTTP::redirect('/login');
 }
 
+// Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
-
 $date_debut = date_format(date_create($loufokerie['date_debut_loufokerie']), 'd M Y');
 $date_fin = date_format(date_create($loufokerie['date_fin_loufokerie']), 'd M Y');
-$today = date('Y-m-d');
 
+// Récupère toutes les contributions de la loufokerie actuelle
 $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
 
-$random_contribution = RandomContribution::getInstance()->findBy([
-    'id_joueur' => $_COOKIE["id"],
-    'id_loufokerie' => $loufokerie["id_loufokerie"]
-])[0];
+// Récupère la contribution aléatoire du joueur
+$random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]])[0];
+$random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution['id_contribution']])[0] : $random_contribution;
+
+// Récupère la contribution du joueur, si elle existe
+$user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
+$user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
+
+function txtContribSingularPlural($nb) {
+    switch ($nb) {
+        case 0:
+            $txt = null;
+            break;
+        case 1:
+            $txt = `<p>$nb contribution masquée</p>`;
+            break;
+        default:
+            $txt = `<p>$nb contributions masquées</p>`;
+            break;
+    }
+    return $txt;
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +51,8 @@ $random_contribution = RandomContribution::getInstance()->findBy([
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/index.css">
+    <!-- JS -->
+    <script src="/assets/scripts/input_char_limit.js"></script>
 </head>
 
 <body>
@@ -56,7 +76,7 @@ $random_contribution = RandomContribution::getInstance()->findBy([
                 <div class="loufokerie__header">
                     <p class="loufokerie__dates"><?php echo $date_debut . " - " . $date_fin ?></p>
                     <div class="loufokerie__nbcontrib">
-                        <span><?php echo Contribution::getInstance()->countBy($loufokerie["id_loufokerie"]); ?></span>
+                        <span><?php echo count($contributions); ?></span>
                         <img src="/assets/images/contributions.svg" alt="contributions">
                     </div>
                 </div>
@@ -69,17 +89,28 @@ $random_contribution = RandomContribution::getInstance()->findBy([
                         <a href="/assignRandomContrib" class="joinLoufokerie__button">Rejoindre la loufokerie</a>
                     </div>
                 <?php
-                    // Sinon s'il a déjà une contribution aléatoire attribuée, rejoins la contribution
                 } else {
-                    foreach ($contributions as $contribution) {
-                        if ($contribution["id_contribution"] === $random_contribution["id_contribution"]) {
-                            echo "<p>{$contribution['texte_contribution']}</p>";
-                        } else {
-                            echo "<hr class='separator'></hr>";
-                        }
-                    }
+                    $nb_contrib_before = $random_contribution['ordre_soumission'] - 1;
+                    $nb_contrib_after = count($contributions) - $random_contribution['ordre_soumission'];
+
+                    $txt_before = txtContribSingularPlural($nb_contrib_before);
+                    $txt_after = txtContribSingularPlural($nb_contrib_after);
+                ?>
+                    <?php if ($txt_before) echo $txt_before; ?>
+                    <p><?php echo $random_contribution['texte_contribution'] ?></p>
+                    <?php if ($txt_after) echo $txt_after;  ?>
+                <?php
                 }
                 ?>
+                <div class="contribute">
+                    <form class="contribute__form">
+                        <div class="contribute__inputwrapper">
+                            <label class="contribute__label" for="contribution"></label>
+                            <input class="contribute__input" type="text" name="contribution" id="">
+                        </div>
+                        <button class="contribute__submit">Valider</button>
+                    </form>
+                </div>
             </div>
         <?php
         }
