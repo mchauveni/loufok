@@ -11,9 +11,4 @@ class Contribution extends Model {
 
         return self::$instance;
     }
-
-    public function countBy($id_loufok) {
-        $sql = "SELECT * FROM `contribution` WHERE id_loufokerie = $id_loufok";
-        return count($this->query($sql)->fetchAll());
-    }
 }
