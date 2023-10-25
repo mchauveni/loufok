@@ -7,7 +7,6 @@ RewriteEngine On
 # Toutes les URL vont être dirigées vers le fichier index.php
 # sauf les URL qui correspondent à un fichier existant
 RewriteBase /loufok
-RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
