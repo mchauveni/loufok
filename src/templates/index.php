@@ -3,10 +3,37 @@ if (!$_COOKIE['is_logged_in']) {
     HTTP::redirect('/login');
 }
 
+
+
 // Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
 $date_debut = date_format(date_create($loufokerie['date_debut_loufokerie']), 'd M Y');
 $date_fin = date_format(date_create($loufokerie['date_fin_loufokerie']), 'd M Y');
+
+if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
+    $errors = false;
+    $length_contrib = strlen($_POST['contribution_text']);
+
+    if ($length_contrib < 50) {
+        $errors = "Le texte doit faire au moins 50 caractères";
+    }
+
+    if ($length_contrib > 280) {
+        $errors = "Le texte est trop long";
+    }
+
+    if (!$errors) {
+        $now = new DateTime('now');
+        $now = $now->format('Y-m-d H:i:s');
+        Contribution::getInstance()->create([
+            "id_loufokerie" => $loufokerie['id_loufokerie'],
+            "id_joueur" => $_COOKIE['id'],
+            "texte_contribution" => $_POST['contribution_text'],
+            "date_soumission" => $now,
+            "ordre_soumission" => Contribution::getInstance()->getLastSubmission(),
+        ]);
+    }
+}
 
 // Récupère toutes les contributions de la loufokerie actuelle
 $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
@@ -18,7 +45,7 @@ $random_contribution = ($random_contribution != null) ? Contribution::getInstanc
 // Récupère la contribution du joueur, si elle existe
 $user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
 $user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
-var_dump($user_contribution == null);
+
 
 function txtContribSingularPlural($nb) {
     switch ($nb) {
@@ -93,24 +120,26 @@ function txtContribSingularPlural($nb) {
                 } else {
                     $nb_contrib_before = $random_contribution['ordre_soumission'] - 1;
                     $nb_contrib_after = count($contributions) - $random_contribution['ordre_soumission'];
+                    $nb_contrib_between = ($user_contribution) ? $user_contribution['ordre_soumission'] - $random_contribution['ordre_soumission'] - 1 : 0;
 
                     $txt_before = txtContribSingularPlural($nb_contrib_before);
                     $txt_between = txtContribSingularPlural($nb_contrib_after);
-                    $txt_after = txtContribSingularPlural($nb_contrib_after);
+                    $txt_after = txtContribSingularPlural($nb_contrib_between);
                 ?>
                     <?php if ($txt_before) echo $txt_before; ?>
                     <p><?php echo $random_contribution['texte_contribution'] ?></p>
-                    <?php if ($txt_after) echo $txt_after;  ?>
+                    <?php if ($txt_after) echo $txt_between; ?>
                     <?php if ($user_contribution) echo $user_contribution['texte_contribution'];  ?>
+                    <?php if ($txt_after) echo $txt_after; ?>
                 <?php
                 }
                 if (!$user_contribution) {
                 ?>
                     <div class="contribute">
-                        <form class="contribute__form" action="submitContrib" method="POST">
+                        <form class="contribute__form" method="POST">
                             <div class="contribute__inputwrapper">
                                 <label class="contribute__label" for="contribution"></label>
-                                <textarea class="contribute__input" type="text" name="contribution" placeholder="...boira le vin nouveau..."></textarea>
+                                <textarea class="contribute__input" type="text" name="contribution_text" placeholder="...boira le vin nouveau..."></textarea>
                             </div>
                             <button class="contribute__submit">Valider</button>
                         </form>

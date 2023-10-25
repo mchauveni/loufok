@@ -11,4 +11,10 @@ class Contribution extends Model {
 
         return self::$instance;
     }
+
+    public function getLastSubmission() {
+        $current_loufokerie_id = Loufokerie::getInstance()->getCurrent()['id_loufokerie'];
+        $sql = "SELECT MAX(ordre_soumission) as 'last_submission_index' FROM `contribution` WHERE id_loufokerie = $current_loufokerie_id";
+        return $this->query($sql)->fetch()['last_submission_index'];
+    }
 }

@@ -3,7 +3,7 @@
 $routes = [
     [
         'route' => ['/'],
-        'method' => ['GET'],
+        'method' => ['GET', 'POST'],
         'script' => 'index.php',
     ],
     [
