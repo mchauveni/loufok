@@ -1,9 +1,4 @@
 <?php
-if (!$_COOKIE['is_logged_in']) {
-    HTTP::redirect('/login');
-}
-
-
 
 // Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
