@@ -30,7 +30,7 @@ if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
             "id_joueur" => $_COOKIE['id'],
             "texte_contribution" => $_POST['contribution_text'],
             "date_soumission" => $now,
-            "ordre_soumission" => Contribution::getInstance()->getLastSubmission(),
+            "ordre_soumission" => Contribution::getInstance()->getLastSubmission() + 1,
         ]);
     }
 }
@@ -39,8 +39,8 @@ if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
 $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
 
 // Récupère la contribution aléatoire du joueur
-$random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]])[0];
-$random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution['id_contribution']])[0] : $random_contribution;
+$random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]]);
+$random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution[0]['id_contribution']])[0] : $random_contribution;
 
 // Récupère la contribution du joueur, si elle existe
 $user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
@@ -48,16 +48,12 @@ $user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : n
 
 
 function txtContribSingularPlural($nb) {
-    switch ($nb) {
-        case 0:
-            $txt = null;
-            break;
-        case 1:
-            $txt = `<p>$nb contribution masquée</p>`;
-            break;
-        default:
-            $txt = `<p>$nb contributions masquées</p>`;
-            break;
+    if ($nb <= 0) {
+        $txt = null;
+    } else if ($nb == 1) {
+        $txt = "<p class='hidden_contribution'><span class='hidden_contribution__text'>$nb contribution masquée</span></p>";
+    } else {
+        $txt = "<p class='hidden_contribution'><span class='hidden_contribution__text'>$nb contributions masquées</span></p>";
     }
     return $txt;
 }
@@ -119,21 +115,22 @@ function txtContribSingularPlural($nb) {
                 <?php
                 } else {
                     $nb_contrib_before = $random_contribution['ordre_soumission'] - 1;
-                    $nb_contrib_after = count($contributions) - $random_contribution['ordre_soumission'];
-                    $nb_contrib_between = ($user_contribution) ? $user_contribution['ordre_soumission'] - $random_contribution['ordre_soumission'] - 1 : 0;
+                    $nb_contrib_between = ($user_contribution) ? $user_contribution['ordre_soumission'] - $random_contribution['ordre_soumission'] - 1 :  count($contributions) - $random_contribution['ordre_soumission'];
+                    $nb_contrib_after = ($user_contribution) ? count($contributions) - $user_contribution['ordre_soumission'] : 0;
 
                     $txt_before = txtContribSingularPlural($nb_contrib_before);
-                    $txt_between = txtContribSingularPlural($nb_contrib_after);
-                    $txt_after = txtContribSingularPlural($nb_contrib_between);
+                    $txt_between = txtContribSingularPlural($nb_contrib_between);
+                    $txt_after = txtContribSingularPlural($nb_contrib_after);
+
                 ?>
                     <?php if ($txt_before) echo $txt_before; ?>
-                    <p><?php echo $random_contribution['texte_contribution'] ?></p>
-                    <?php if ($txt_after) echo $txt_between; ?>
-                    <?php if ($user_contribution) echo $user_contribution['texte_contribution'];  ?>
+                    <p class="loufokerie__contribution"><?php echo $random_contribution['texte_contribution'] ?></p>
+                    <?php if ($txt_between) echo $txt_between; ?>
+                    <?php if ($user_contribution) echo "<p class='loufokerie__contribution'>" . $user_contribution['texte_contribution'] . "</p>"; ?>
                     <?php if ($txt_after) echo $txt_after; ?>
                 <?php
                 }
-                if (!$user_contribution) {
+                if (!$user_contribution && $random_contribution) {
                 ?>
                     <div class="contribute">
                         <form class="contribute__form" method="POST">

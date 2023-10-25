@@ -80,6 +80,29 @@
     gap: 0.25rem;
 }
 
+.loufokerie__contribution {
+    word-break: break-word;
+}
+
+.hidden_contribution {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    color: var(--secondary);
+}
+
+.hidden_contribution:before, .hidden_contribution:after {
+    content: "";
+    height: 0;
+    border-bottom: 1px solid var(--secondary);
+    flex-grow: 1;
+}
+
+.hidden_contribution__text {
+    background-color: var(--bg);
+}
+
 .joinLoufokerie {
     width: 100%;
     display: flex;
