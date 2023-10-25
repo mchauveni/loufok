@@ -11,26 +11,3 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
-
-# DEBUT en tête Cache-Control
-<IfModule mod_headers.c>
-<FilesMatch "\.(jpe?g|png|gif|webp|ttf|svg)$">
-Header set Cache-Control "max-age=2592000, public"
-</FilesMatch>
-
-</IfModule>
-# FIN en tête Cache-Control
-
-# DEBUT en tête Expires
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpg "access plus 7 days"
-ExpiresByType image/jpeg "access plus 7 days"
-ExpiresByType image/gif "access plus 7 days"
-ExpiresByType image/png "access plus 7 days"
-ExpiresByType image/webp "access plus 7 days"
-ExpiresByType image/svg "access plus 7 days"
-ExpiresByType font/ttf "access plus 3 year"
-ExpiresDefault "access plus 30 days"
-</IfModule>
-# FIN en tête Expires
