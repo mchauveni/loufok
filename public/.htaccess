@@ -1,37 +1,36 @@
-#utiliser le fichier index comme contrôleur frontal (solution de repli)
-DirectoryIndex index.php
+# empêche la visualisation de l'arborescence dans un dossier
+Options -Indexes
 
-#désactiver les MultiViews
-<IfModule mod_negotiation.c>
-    Options -MultiViews
+# active le module de réécriture d'URL
+RewriteEngine On
+
+# Toutes les URL vont être dirigées vers le fichier index.php
+# sauf les URL qui correspondent à un fichier existant
+RewriteBase /loufok
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+# DEBUT en tête Cache-Control
+<IfModule mod_headers.c>
+<FilesMatch "\.(jpe?g|png|gif|webp|ttf|svg)$">
+Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+
 </IfModule>
-<IfModule mod_rewrite.c>
-    RewriteEngine On
+# FIN en tête Cache-Control
 
-    # Déterminer automatiquement la RewriteBase et la définir comme variable d'environnement
-    RewriteCond %{REQUEST_URI}::$0 ^(/.+)/(.)::\2$
-    RewriteRule . - [E=BASE:%1]
-
-    # spécifier le réglage de la directive HTTP_AUTHORIZATION
-    RewriteCond %{HTTP:Authorization} .+
-    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%0]
-
-    # éviter les boucles sans fin de redirection
-    RewriteCond %{ENV:REDIRECT_STATUS} =""
-    RewriteRule ^index.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
-
-    # servir le fichier si il existe
-    # sinon rediriger toutes les requêtes vers index.php
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ %{ENV:BASE}/index.php [L]
-    </IfModule>
-<IfModule !mod_rewrite.c>
-    <IfModule mod_alias.c>
-
-        # Lorsque mod_rewrite n'est pas disponible, demander une redirection temporaire de
-        # la page d'accueil au contrôleur frontal
-        RedirectMatch 307 ^/$ /index.php/
-
-        # RedirectTemp cannot be used instead
-    </IfModule>
+# DEBUT en tête Expires
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access plus 7 days"
+ExpiresByType image/jpeg "access plus 7 days"
+ExpiresByType image/gif "access plus 7 days"
+ExpiresByType image/png "access plus 7 days"
+ExpiresByType image/webp "access plus 7 days"
+ExpiresByType image/svg "access plus 7 days"
+ExpiresByType font/ttf "access plus 3 year"
+ExpiresDefault "access plus 30 days"
 </IfModule>
+# FIN en tête Expires
