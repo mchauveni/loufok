@@ -30,17 +30,18 @@ if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
     }
 }
 
-// Récupère toutes les contributions de la loufokerie actuelle
-$contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
+if ($loufokerie) {
+    // Récupère toutes les contributions de la loufokerie actuelle
+    $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
 
-// Récupère la contribution aléatoire du joueur
-$random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]]);
-$random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution[0]['id_contribution']])[0] : $random_contribution;
+    // Récupère la contribution aléatoire du joueur
+    $random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]]);
+    $random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution[0]['id_contribution']])[0] : $random_contribution;
 
-// Récupère la contribution du joueur, si elle existe
-$user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
-$user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
-
+    // Récupère la contribution du joueur, si elle existe
+    $user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
+    $user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
+}
 
 function txtContribSingularPlural($nb) {
     if ($nb <= 0) {
