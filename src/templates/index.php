@@ -2,8 +2,6 @@
 
 // Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
-$date_debut = date_format(date_create($loufokerie['date_debut_loufokerie']), 'd M Y');
-$date_fin = date_format(date_create($loufokerie['date_fin_loufokerie']), 'd M Y');
 
 if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
     $errors = false;
@@ -31,6 +29,10 @@ if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
 }
 
 if ($loufokerie) {
+    // Les dates de la loufokerie en cours
+    $date_debut = date_format(date_create($loufokerie['date_debut_loufokerie']), 'd M Y');
+    $date_fin = date_format(date_create($loufokerie['date_fin_loufokerie']), 'd M Y');
+
     // Récupère toutes les contributions de la loufokerie actuelle
     $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
 
