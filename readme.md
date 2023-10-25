@@ -12,6 +12,6 @@ Todolist :
 -   [ ] Admin : Afficher la Loufokerie en cours, et les anciennes Loufokeries
 -   [ ] A&J : Page de consultation de Loufokerie
 -   [ ] A&J : Afficher liste contributeur dans page Loufokerie
--   [ ]
+-   [ ] Fix git bare prod
 -   [ ]
 -   [ ]
