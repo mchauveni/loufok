@@ -13,7 +13,7 @@ class RandomContribution extends Model {
     }
 
     public function assign($id_loufok, $id_user) {
-        $nbcontrib = Contribution::getInstance()->countBy($id_loufok);
+        $nbcontrib = count(Contribution::getInstance()->findBy(['id_loufokerie' => $id_loufok]));
         $rand = rand(1, $nbcontrib);
         $randomContrib = Contribution::getInstance()->findBy([
             'id_loufokerie' => $id_loufok,
