@@ -108,7 +108,7 @@ function txtContribSingularPlural($nb) {
                 ?>
                     <div class="joinLoufokerie">
                         <p class="joinLoufokerie__text">Vous n'avez pas encore de contribution attribuée</p>
-                        <a href="/assignRandomContrib" class="joinLoufokerie__button">Rejoindre la loufokerie</a>
+                        <a href="./assignRandomContrib" class="joinLoufokerie__button">Rejoindre la loufokerie</a>
                     </div>
                 <?php
                 } else {
