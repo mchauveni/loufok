@@ -53,7 +53,7 @@ if (HTTP::is_method_post()) {
 			</div>
 			<div class="login__inputwrapper">
 				<label class="login__label" for="password">Mot de Passe</label>
-				<input class="login__input" type="text" name="password" id="">
+				<input class="login__input" type="password" name="password" id="">
 			</div>
 			<?php
 			if (isset($errors)) {
