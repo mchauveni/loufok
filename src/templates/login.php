@@ -46,7 +46,7 @@ if (HTTP::is_method_post()) {
 <body>
 	<div class="login">
 		<form class="login__form" method="post">
-			<img src="/assets/images/loufok.svg" alt="">
+			<img src="./assets/images/loufok.svg" alt="">
 			<div class="login__inputwrapper">
 				<label class="login__label" for="email">Adresse Email</label>
 				<input class="login__input" type="text" name="email" id="">
