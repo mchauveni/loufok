@@ -69,7 +69,7 @@ function txtContribSingularPlural($nb) {
     <!-- Meta Tags -->
     <meta name="robots" content="noindex, nofollow">
     <!-- Favicon -->
-    <link rel="icon" href="./favicon.ico">
+    <link rel="icon" href="./assets/images/favicon.ico">
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/index.css">
@@ -80,8 +80,8 @@ function txtContribSingularPlural($nb) {
 <body>
     <header class="header">
         <div class="header__icons">
-            <img class="header__icon header__icon--loufok" src="/assets/images/loufok.svg" alt="">
-            <a class="header__logout" href="/logout"><img class="header__icon" src="/assets/images/logout.svg" alt=""></a>
+            <img class="header__icon header__icon--loufok" src="./assets/images/loufok.svg" alt="">
+            <a class="header__logout" href="./logout"><img class="header__icon" src="./assets/images/logout.svg" alt=""></a>
         </div>
         <h1 class="header__greetings">Bienvenue <span class="header__username"><?php echo $_COOKIE["username"] ?></span>,</h1>
     </header>
@@ -90,7 +90,7 @@ function txtContribSingularPlural($nb) {
     <div>
         <?php
         if (!$loufokerie) {
-            echo "Il n'y a pas de Loufokerie en cours..";
+            echo "<p class='no_loufokerie'>Il n'y a pas de Loufokerie en cours..</p>";
         } else {
         ?>
             <div class="loufokerie">

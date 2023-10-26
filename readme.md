@@ -12,6 +12,6 @@ Todolist :
 -   [ ] Admin : Afficher la Loufokerie en cours, et les anciennes Loufokeries
 -   [ ] A&J : Page de consultation de Loufokerie
 -   [ ] A&J : Afficher liste contributeur dans page Loufokerie
--   [ ] Fix git bare prod
--   [ ]
--   [ ]
+-   [x] Fix git bare prod
+-   [ ] Prod : Logout link is to [serverURL]/logout instead of [serverURL]/loufok/logout
+-   [ ] Prod : assets links are broken
