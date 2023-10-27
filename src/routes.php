@@ -48,13 +48,13 @@ $routes = [
         'auth' => 'admin'
     ],
     [
-        'route' => ['/admin/newloufok'],
-        'method' => ['GET'],
+        'route' => ['/newloufok'],
+        'method' => ['GET', 'POST'],
         'script' => 'newloufok.php',
         'auth' => 'admin'
     ],
     [
-        'route' => ['/admin/endloufok'],
+        'route' => ['/endloufok'],
         'method' => ['GET'],
         'script' => 'endloufok.php',
         'auth' => 'admin'

@@ -61,7 +61,7 @@ function txtContribSingularPlural($nb) {
         ?>
             <div class="no_loufokerie">
                 <p class="no_loufokerie__text">Il n'y a pas de Loufokerie en cours..</p>
-                <a class="no_loufokerie__button" href="./admin/nouvelleloufokerie">Nouvelle Loufokerie</a>
+                <a class="no_loufokerie__button" href="./admin/newloufok">Nouvelle Loufokerie</a>
             </div>
         <?php
         } else {

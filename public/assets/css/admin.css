@@ -8,8 +8,13 @@
 }
 
 .no_loufokerie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--secondary);
     text-align: center;
+
 }
 
 .loufokerie__title {
@@ -54,7 +59,8 @@
 }
 
 .loufokerie__edit,
-.loufokerie__end {
+.loufokerie__end,
+.no_loufokerie__button {
     display: block;
     width: fit-content;
     text-decoration: none;

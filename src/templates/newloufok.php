@@ -47,7 +47,8 @@ function txtContribSingularPlural($nb) {
     <link rel="icon" href="./assets/images/favicon.ico">
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
+    <link rel="stylesheet" href="./assets/css/newloufok.css">
     <!-- JS -->
     <script src="/assets/scripts/contribution_textarea_handler.js"></script>
 </head>
@@ -59,17 +60,29 @@ function txtContribSingularPlural($nb) {
             <a class="header__logout" href="./logout" aria-label="se déconnecter"><img class="header__icon" src="./assets/images/logout.svg" alt=""></a>
         </div>
         <h1 class="header__greetings">Bienvenue <span class="header__username">Admin</span>,</h1>
-        <hr class="separator">
+        <hr class="header__separator">
         </hr>
     </header>
 
-    <form action="">
-        <div>
-            <input type="datetime" name="" id="">
-            <input type="datetime" name="" id="">
+    <form class="form" action="">
+        <div class="form__div">
+            <label class="form__label" for="titre_loufokerie">Titre</label>
+            <input class="form__input" type="text" name="titre_loufokerie" id="">
         </div>
-        <div>
-            <input type="text" name="" id="">
+        <div class="form__div">
+            <label class="form__label" for="date_debut_loufokerie">Date de début</label>
+            <div class="form__inputwrapper">
+                <input class="form__input" type="date" name="date_debut_loufokerie" id="">
+                <input class="form__input" type="time" name="" id="">
+            </div>
+            <label class="form__label" for="date_fin_loufokerie">Date de fin</label>
+            <div class="form__inputwrapper">
+                <input class="form__input" type="date" name="date_fin_loufokerie" id="">
+                <input class="form__input" type="time" name="" id="">
+            </div>
+        </div>
+        <div class="form__submit">
+            <button class="form__button">Valider</button>
         </div>
     </form>
 </body>
