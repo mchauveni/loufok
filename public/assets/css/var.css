@@ -4,10 +4,11 @@
 }
 
 :root {
-    --background: #EAF9D9;
+    --background: #f0f8e7;
     --main: #E2D4BA;
     --near-main: #CCC7B9;
     --secondary: #AF7A6D;
     --dark: #653239;
+    --red: #b64842;
     --text-font: General Sans;
 }
