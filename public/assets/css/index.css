@@ -1,51 +1,3 @@
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.header__icons {
-    width: 100%;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header__logout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--secondary);
-    padding: 0.5rem;
-    border-radius: 50%;
-}
-
-.header__icon {
-    height: 2rem;
-}
-
-.header__icon--loufok {
-    height: 4rem;
-}
-
-.header__greetings {
-    font-size: 2rem;
-}
-
-.header__username {
-    font-weight: 600;
-    color: var(--dark);
-}
-
-.separator {
-    height: 0;
-    border: none;
-    border-bottom: 1px solid var(--near-main);
-    margin: 1rem 15%;
-}
-
 .loufokerie {
     padding: 1.5rem;
     padding-top: 0;
@@ -91,6 +43,8 @@
 
 .hidden_contribution {
     display: flex;
+    font-size: 0.75rem;
+    font-weight: 600;
     align-items: center;
     gap: 0.5rem;
     width: 100%;
@@ -162,6 +116,10 @@
     top: 50%;
     right: 0.5rem;
     transform: translateY(-50%);
+}
+
+.errors {
+    color: red;
 }
 
 .contribute__submit {
