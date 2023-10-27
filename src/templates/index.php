@@ -1,5 +1,9 @@
 <?php
 
+if ($_COOKIE['account_type'] === "admin") {
+    HTTP::redirect('/admin');
+}
+
 // Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
 
@@ -72,9 +76,10 @@ function txtContribSingularPlural($nb) {
     <link rel="icon" href="./assets/images/favicon.ico">
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/index.css">
     <!-- JS -->
-    <script src="/assets/scripts/contribution_textarea_handler.js"></script>
+    <script src="./assets/scripts/contribution_textarea_handler.js"></script>
 </head>
 
 <body>
@@ -84,9 +89,9 @@ function txtContribSingularPlural($nb) {
             <a class="header__logout" href="./logout"><img class="header__icon" src="./assets/images/logout.svg" alt=""></a>
         </div>
         <h1 class="header__greetings">Bienvenue <span class="header__username"><?php echo $_COOKIE["username"] ?></span>,</h1>
+        <hr class="header__separator">
+        </hr>
     </header>
-    <hr class="separator">
-    </hr>
     <div>
         <?php
         if (!$loufokerie) {
@@ -136,6 +141,11 @@ function txtContribSingularPlural($nb) {
                                 <label class="contribute__label" for="contribution"></label>
                                 <textarea class="contribute__input" type="text" name="contribution_text" placeholder="...boira le vin nouveau..."></textarea>
                             </div>
+                            <?php
+                            if ($errors) {
+                                echo "<p class='errors'>$errors</p>";
+                            }
+                            ?>
                             <button class="contribute__submit">Valider</button>
                         </form>
                     </div>
