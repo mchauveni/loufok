@@ -13,8 +13,9 @@ class Loufokerie extends Model {
     }
 
     public function getCurrent() {
-        $today = date('Y-m-d');
-        $sql = "SELECT * FROM `loufokerie` WHERE date_debut_loufokerie < '$today' AND date_fin_loufokerie >= '$today'";
+        $now = new DateTime('now');
+        $now = $now->format('Y-m-d H:i:s');
+        $sql = "SELECT * FROM `loufokerie` WHERE date_debut_loufokerie < '$now' AND date_fin_loufokerie >= '$now'";
 
         $current = $this->query($sql)->fetch();
         if (!$current) return false;
