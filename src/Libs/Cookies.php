@@ -41,4 +41,8 @@ class Cookies {
 		}
 		setcookie('is_logged_in', 0);
 	}
+
+	public static function init() {
+		setcookie("is_logged_in", true);
+	}
 }

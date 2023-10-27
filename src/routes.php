@@ -4,7 +4,7 @@ $routes = [
     [
         'route' => ['/'],
         'method' => ['GET', 'POST'],
-        'script' => 'index.php',
+        'script' => 'index.php'
     ],
     [
         'route' => ['/404'],
@@ -42,10 +42,21 @@ $routes = [
         'script' => 'assignContrib.php',
     ],
     [
-        'route' => ['/loufokerie/create'],
+        'route' => ['/admin'],
         'method' => ['GET'],
-        'script' => '',
+        'script' => 'admin.php',
         'auth' => 'admin'
     ],
-
+    [
+        'route' => ['/admin/newloufok'],
+        'method' => ['GET'],
+        'script' => 'newloufok.php',
+        'auth' => 'admin'
+    ],
+    [
+        'route' => ['/admin/endloufok'],
+        'method' => ['GET'],
+        'script' => 'endloufok.php',
+        'auth' => 'admin'
+    ],
 ];

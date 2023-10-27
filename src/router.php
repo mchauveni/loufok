@@ -10,6 +10,10 @@ $route = $route === '' ? '/' : $route;
 
 foreach ($routes as $r) {
     if (in_array($route, $r['route']) && in_array($_SERVER['REQUEST_METHOD'], $r['method'])) {
+        if (!isset($_COOKIE['is_logged_in'])) {
+            Cookies::init();
+        }
+
 
         if (!$_COOKIE['is_logged_in'] && $route != "/login") {
             HTTP::redirect('/login');
