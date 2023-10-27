@@ -1,4 +1,8 @@
 <?php
+if ($_COOKIE['is_logged_in']) {
+	$account_type == "user" ? HTTP::redirect() : HTTP::redirect('/admin');
+}
+
 if (HTTP::is_method_post()) {
 	date_default_timezone_set('Europe/Paris');
 	$user = User::getInstance()->findBy(['ad_mail_joueur' => $_POST['email'], 'mot_de_passe_joueur' => $_POST['password']]);
@@ -11,7 +15,7 @@ if (HTTP::is_method_post()) {
 		if ($admin) {
 			// REDIRIGER VERS UNE PAGE ADMIN
 			Cookies::log_in($admin, true);
-			HTTP::redirect('/responsable/dashboard');
+			HTTP::redirect('/admin');
 		} else {
 			$errors = 'Identifiants invalides';
 		}
@@ -37,7 +41,7 @@ if (HTTP::is_method_post()) {
 	<!-- Meta Tags -->
 	<meta name="robots" content="noindex, nofollow">
 	<!-- Favicon -->
-	<link rel="icon" href="./favicon.ico">
+	<link rel="icon" href="./assets/images/favicon.ico">
 	<!-- CSS -->
 	<link rel="stylesheet" href="./assets/css/main.css">
 	<link rel="stylesheet" href="./assets/css/login.css">
