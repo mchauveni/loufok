@@ -11,7 +11,7 @@ $route = $route === '' ? '/' : $route;
 foreach ($routes as $r) {
     if (in_array($route, $r['route']) && in_array($_SERVER['REQUEST_METHOD'], $r['method'])) {
         if (!isset($_COOKIE['is_logged_in'])) {
-            Cookies::init();
+            setcookie("is_logged_in", true);
         }
 
 
