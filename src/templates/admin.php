@@ -10,14 +10,6 @@ if ($loufokerie) {
 
     // Récupère toutes les contributions de la loufokerie actuelle
     $contributions = Contribution::getInstance()->findBy(['id_loufokerie' => $loufokerie['id_loufokerie']]);
-
-    // Récupère la contribution aléatoire du joueur
-    $random_contribution = RandomContribution::getInstance()->findBy(['id_joueur' => $_COOKIE["id"], 'id_loufokerie' => $loufokerie["id_loufokerie"]]);
-    $random_contribution = ($random_contribution != null) ? Contribution::getInstance()->findBy(["id_contribution" => $random_contribution[0]['id_contribution']])[0] : $random_contribution;
-
-    // Récupère la contribution du joueur, si elle existe
-    $user_contribution = Contribution::getInstance()->findBy(["id_loufokerie" => $loufokerie["id_loufokerie"], "id_joueur" => $_COOKIE["id"]]);
-    $user_contribution = (count($user_contribution) > 0) ? $user_contribution[0] : null;
 }
 
 function txtContribSingularPlural($nb) {
@@ -78,7 +70,7 @@ function txtContribSingularPlural($nb) {
                 <h2 class="loufokerie__title"><?php echo $loufokerie["titre_loufokerie"] ? $loufokerie['titre_loufokerie'] : "Loufokerie en cours"  ?></h2>
                 <div class="loufokerie__options">
                     <a class="loufokerie__edit" href="">Modifier</a>
-                    <a class="loufokerie__end" href="">Terminer</a>
+                    <a class="loufokerie__end" href="./admin/endloufok">Terminer</a>
                 </div>
                 <div class="loufokerie__header">
                     <p class="loufokerie__dates"><?php echo $date_debut . " - " . $date_fin ?></p>

@@ -63,6 +63,15 @@ function txtContribSingularPlural($nb) {
         </hr>
     </header>
 
+    <form action="">
+        <div>
+            <input type="datetime" name="" id="">
+            <input type="datetime" name="" id="">
+        </div>
+        <div>
+            <input type="text" name="" id="">
+        </div>
+    </form>
 </body>
 
 </html>
