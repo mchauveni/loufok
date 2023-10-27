@@ -62,7 +62,7 @@ class Model {
      * @return array
      */
     public function find(int $id): ?array {
-        $sql = "SELECT * FROM `{$this->tableName}` WHERE id = :id";
+        $sql = "SELECT * FROM `{$this->tableName}` WHERE id_{$this->tableName} = :id";
         $sth = $this->query($sql, [':id' => $id]);
         if ($sth && $sth->rowCount()) {
             return $sth->fetch();
@@ -112,7 +112,7 @@ class Model {
      * @return bool
      */
     public function exists(int $id): bool {
-        $sql = "SELECT COUNT(*) AS c FROM `{$this->tableName}` WHERE id = :id";
+        $sql = "SELECT COUNT(*) AS c FROM `{$this->tableName}` WHERE id_{$this->tableName} = :id";
         $sth = $this->query($sql, [':id' => $id]);
         if ($sth) {
             return ($sth->fetch()['c'] > 0);
@@ -162,7 +162,7 @@ class Model {
             $sql .= " {$k} = :{$k} ,";
         }
         $sql = substr($sql, 0, strlen($sql) - 1);
-        $sql .= ' WHERE id =:id';
+        $sql .= " WHERE id_{$this->tableName} =:id";
 
         foreach (array_keys($datas) as $k) {
             $attributes[':' . $k] = $datas[$k];
@@ -182,7 +182,7 @@ class Model {
      * @return int|boolean
      */
     public function delete(int $id): int {
-        $sql = "DELETE FROM `{$this->tableName}` WHERE id = :id";
+        $sql = "DELETE FROM `{$this->tableName}` WHERE id_{$this->tableName} = :id";
         $sth = $this->query($sql, [':id' => $id]);
 
         return $sth->rowCount() > 0;
