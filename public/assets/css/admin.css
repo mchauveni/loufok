@@ -48,8 +48,14 @@
     font-weight: 600;
 }
 
+.loufokerie__options {
+    display: flex;
+    gap: 1rem;
+}
+
 .loufokerie__edit,
 .loufokerie__end {
+    display: block;
     width: fit-content;
     text-decoration: none;
     font-size: 1rem;
