@@ -19,10 +19,14 @@ if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
         $errors = "Le texte est trop long";
     }
 
+    if (Contribution::getInstance()->findBy(['id_joueur' => $_COOKIE['id'], 'id_loufokerie' => $loufokerie['id_loufokerie']])) {
+        $errors = "Vous avez déjà contribué";
+    }
+
     if (!$errors) {
         $now = new DateTime('now');
         $now = $now->format('Y-m-d H:i:s');
-        Contribution::getInstance()->create([
+        Contribution::getInstance()->createSubmission([
             "id_loufokerie" => $loufokerie['id_loufokerie'],
             "id_joueur" => $_COOKIE['id'],
             "texte_contribution" => $_POST['contribution_text'],
