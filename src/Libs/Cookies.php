@@ -6,8 +6,8 @@ class Cookies {
 		switch ($is_admin) {
 			case true:
 				setcookie("account_type", "admin");
-				setcookie("id", "id_administrateur");
-				setcookie("email", "ad_mail_administrateur");
+				setcookie("id", $data["id_administrateur"]);
+				setcookie("email", $data["ad_mail_administrateur"]);
 				break;
 
 			case false:

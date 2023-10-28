@@ -14,7 +14,7 @@ if (HTTP::is_method_post()) {
 
 		if ($admin) {
 			// REDIRIGER VERS UNE PAGE ADMIN
-			Cookies::log_in($admin, true);
+			Cookies::log_in($admin[0], true);
 			HTTP::redirect('/admin');
 		} else {
 			$errors = 'Identifiants invalides';
