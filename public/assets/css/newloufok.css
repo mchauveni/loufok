@@ -28,6 +28,11 @@
     border: 2px solid var(--main);
     border-radius: 4px;
     width: 100%;
+    resize: none;
+}
+
+.errors {
+    color: red;
 }
 
 .form__submit {
