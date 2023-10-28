@@ -61,7 +61,7 @@ function txtContribSingularPlural($nb) {
         ?>
             <div class="no_loufokerie">
                 <p class="no_loufokerie__text">Il n'y a pas de Loufokerie en cours..</p>
-                <a class="no_loufokerie__button" href="./admin/newloufok">Nouvelle Loufokerie</a>
+                <a class="no_loufokerie__button" href="./newloufok">Nouvelle Loufokerie</a>
             </div>
         <?php
         } else {
@@ -69,14 +69,14 @@ function txtContribSingularPlural($nb) {
             <div class="loufokerie">
                 <h2 class="loufokerie__title"><?php echo $loufokerie["titre_loufokerie"] ? $loufokerie['titre_loufokerie'] : "Loufokerie en cours"  ?></h2>
                 <div class="loufokerie__options">
-                    <a class="loufokerie__edit" href="">Modifier</a>
-                    <a class="loufokerie__end" href="./admin/endloufok">Terminer</a>
+                    <!-- <a class="loufokerie__edit" href="">Modifier</a> -->
+                    <a class="loufokerie__end" href="./endloufok">Terminer</a>
                 </div>
                 <div class="loufokerie__header">
                     <p class="loufokerie__dates"><?php echo $date_debut . " - " . $date_fin ?></p>
                     <div class="loufokerie__nbcontrib">
                         <span><?php echo count($contributions); ?></span>
-                        <img src="./assets/images/contributions.svg" alt="contributions">
+                        <img src="./assets/images/contributions.svg" alt="contributions" aria-label="contributions">
                     </div>
                 </div>
                 <?php
