@@ -25,6 +25,10 @@ if (HTTP::is_method_post()) {
             $errors = "Date de début antérieure à maintenant";
         }
 
+        if (Loufokerie::getInstance()->getCurrent()) {
+            $errors = "Il y a déjà une Loufokerie en cours..";
+        }
+
         var_dump($_POST['texte_contribution']);
         if (strlen($_POST['texte_contribution']) < 50) {
             $errors = "Texte trop court";
@@ -89,7 +93,10 @@ if (HTTP::is_method_post()) {
         <hr class="header__separator">
         </hr>
     </header>
-
+    <a class="button_back" href="./admin">
+        <img src="./assets/images/chevron_left.svg">
+        Retour
+    </a>
     <form class="form" method="POST">
         <div class="form__div">
             <label class="form__label" for="titre_loufokerie">Titre</label>
