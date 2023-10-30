@@ -6,9 +6,9 @@ if ($_COOKIE['account_type'] === "admin") {
 
 // Récupère la loufokerie et formate les dates
 $loufokerie = Loufokerie::getInstance()->getCurrent();
+$errors = false;
 
 if (HTTP::is_method_post() && isset($_POST['contribution_text'])) {
-    $errors = false;
     $length_contrib = strlen($_POST['contribution_text']);
 
     if ($length_contrib < 50) {
@@ -108,7 +108,7 @@ function txtContribSingularPlural($nb) {
                     <p class="loufokerie__dates"><?php echo $date_debut . " - " . $date_fin ?></p>
                     <div class="loufokerie__nbcontrib">
                         <span><?php echo count($contributions); ?></span>
-                        <img src="/assets/images/contributions.svg" alt="contributions">
+                        <img src="./assets/images/contributions.svg" alt="contributions">
                     </div>
                 </div>
                 <?php
