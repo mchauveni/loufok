@@ -1,6 +1,6 @@
 <?php
 if ($_COOKIE['is_logged_in']) {
-	$account_type == "user" ? HTTP::redirect() : HTTP::redirect('/admin');
+	$_COOKIE['account_type'] == "user" ? HTTP::redirect() : HTTP::redirect('/admin');
 }
 
 if (HTTP::is_method_post()) {
